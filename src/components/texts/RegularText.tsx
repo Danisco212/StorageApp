@@ -1,5 +1,11 @@
 import React, { ReactNode } from 'react'
-import { Platform, StyleSheet, Text, TextStyle } from 'react-native'
+import {
+  GestureResponderEvent,
+  Platform,
+  StyleSheet,
+  Text,
+  TextStyle,
+} from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 
 import COLORS from '../../constants/colors'
@@ -13,6 +19,7 @@ interface TextParams {
   marginTop?: number | undefined
   textAlign?: TextStyle['textAlign']
   fontFamily?: string
+  onPress?: ((event: GestureResponderEvent) => void) | undefined
 }
 
 const RegularText = ({
@@ -22,9 +29,11 @@ const RegularText = ({
   marginTop = Platform.OS === 'android' ? moderateScale(3) : undefined,
   textAlign = 'auto',
   fontFamily = FONTS.REGULAR,
+  onPress = () => {},
 }: TextParams) => {
   return (
     <Text
+      onPress={onPress}
       style={[
         styles.text,
         { fontSize, color, marginTop, textAlign, fontFamily },

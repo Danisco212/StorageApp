@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   FlatList,
   Image,
@@ -16,10 +16,13 @@ import COLORS from '../../constants/colors'
 import FONTS from '../../constants/fonts'
 import FONTS_SIZE from '../../constants/fontSize'
 import { toggleDrawer } from '../../redux/Drawer/actions'
+import HomeTab, { HomeTypes } from './components/HomeTab'
 import MyFileItem from './components/MyFileItem'
 import RecentFileItem from './components/RecentFileItem'
 
 const HomeScreen = () => {
+  const [activeTab, setActiveTab] = useState<HomeTypes>('files')
+
   const renderHeader = () => {
     return (
       <View>
@@ -48,9 +51,14 @@ const HomeScreen = () => {
   }
   return (
     <View style={styles.holder}>
+      <SizedBox height={moderateScale(15)} />
+      <HomeTab changeActive={setActiveTab} active={activeTab} />
+      <SizedBox height={moderateScale(15)} />
       <FlatList
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListFooterComponent={() => <SizedBox height={moderateScale(20)} />}
         ListHeaderComponent={renderHeader()}
-        data={[1, 2, 3, 4, 5]}
+        data={[1, 2, 3, 4, 5, 6, 7]}
         renderItem={({ item }) => <RecentFileItem index={item} />}
       />
       <SizedBox height={moderateScale(15)} />
